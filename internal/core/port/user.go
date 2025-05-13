@@ -1,23 +1,28 @@
+//go:generate mockgen -source=user.go -destination=mock/user.go -package=mock
 package port
 
-import "github.com/babyplug/go-clean-arch/internal/core/domain"
+import (
+	"context"
+
+	"github.com/babyplug/go-clean-arch/internal/core/domain"
+)
 
 type UserRepository interface {
-	Create(user *domain.User) error
-	GetByID(id string) (*domain.User, error)
-	GetByEmail(email string) (*domain.User, error)
-	List() ([]*domain.User, error)
-	Update(user *domain.User) error
-	Delete(id string) error
-	Count() (int, error)
+	Create(ctx context.Context, user *domain.User) error
+	GetByID(ctx context.Context, id string) (*domain.User, error)
+	GetByEmail(ctx context.Context, email string) (*domain.User, error)
+	List(ctx context.Context) ([]*domain.User, error)
+	Update(ctx context.Context, user *domain.User) error
+	Delete(ctx context.Context, id string) error
+	Count(ctx context.Context) (int, error)
 }
 
 type UserService interface {
-	Create(user *domain.User) error
-	GetByID(id string) (*domain.User, error)
-	GetByEmail(email string) (*domain.User, error)
-	List() ([]*domain.User, error)
-	Update(user *domain.User) error
-	Delete(id string) error
-	Count() (int, error)
+	Create(ctx context.Context, user *domain.User) error
+	GetByID(ctx context.Context, id string) (*domain.User, error)
+	GetByEmail(ctx context.Context, email string) (*domain.User, error)
+	List(ctx context.Context) ([]*domain.User, error)
+	Update(ctx context.Context, user *domain.User) error
+	Delete(ctx context.Context, id string) error
+	Count(ctx context.Context) (int, error)
 }

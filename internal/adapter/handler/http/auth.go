@@ -1,59 +1,44 @@
 package http
 
 import (
+	"errors"
+	"net/http"
+
 	"github.com/babyplug/go-clean-arch/internal/core/port"
+	"github.com/gin-gonic/gin"
 )
 
-type authHandler struct {
-	service   *port.UserService
+type AuthHandler struct {
+	service   port.AuthService
 	jwtSecret string
 }
 
-// func NewAuthHandler(r *mux.Router, service *port.UserService, jwtSecret string) {
-// 	h := &authHandler{service: service, jwtSecret: jwtSecret}
-// 	r.HandleFunc("/auth/register", h.Register).Methods("POST")
-// 	r.HandleFunc("/auth/login", h.Login).Methods("POST")
-// }
+type AuthReq struct {
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}
 
-// func (h *authHandler) Register(w http.ResponseWriter, r *http.Request) {
-// 	var input domain.User
-// 	if err := json.NewDecoder(r.Body).Decode(&input); err != nil {
-// 		http.Error(w, "Invalid request", http.StatusBadRequest)
-// 		return
-// 	}
+func NewAuthHandler(service port.AuthService) *AuthHandler {
+	return &AuthHandler{
+		service: service,
+	}
+}
 
-// 	user, err := h.service.RegisterUser(&input)
-// 	if err != nil {
-// 		http.Error(w, err.Error(), http.StatusBadRequest)
-// 		return
-// 	}
+func (h *AuthHandler) Login(ctx *gin.Context) {
+	var creds AuthReq
 
-// 	w.WriteHeader(http.StatusCreated)
-// 	json.NewEncoder(w).Encode(user)
-// }
+	if err := ctx.ShouldBindJSON(&creds); err != nil {
+		handleError(ctx, http.StatusBadRequest, errors.New("Invalid request payload"))
+		return
+	}
 
-// func (h *authHandler) Login(w http.ResponseWriter, r *http.Request) {
-// 	var creds struct {
-// 		Email    string `json:"email"`
-// 		Password string `json:"password"`
-// 	}
+	token, err := h.service.Login(ctx, creds.Email, creds.Password)
+	if err != nil {
+		handleError(ctx, http.StatusUnauthorized, errors.New("Invalid credentials"))
+		return
+	}
 
-// 	if err := json.NewDecoder(r.Body).Decode(&creds); err != nil {
-// 		http.Error(w, "Invalid request", http.StatusBadRequest)
-// 		return
-// 	}
+	rsp := newAuthResponse(token)
 
-// 	user, err := h.service.AuthenticateUser(creds.Email, creds.Password)
-// 	if err != nil {
-// 		http.Error(w, "Invalid credentials", http.StatusUnauthorized)
-// 		return
-// 	}
-
-// 	token, err := jwt.GenerateToken(user.ID, h.jwtSecret, time.Hour*24)
-// 	if err != nil {
-// 		http.Error(w, "Failed to generate token", http.StatusInternalServerError)
-// 		return
-// 	}
-
-// 	json.NewEncoder(w).Encode(map[string]string{"token": token})
-// }
+	handleSuccess(ctx, rsp)
+}

@@ -13,7 +13,8 @@ var (
 	_config Config = Config{
 		MongoURI: "mongodb://localhost:27017",
 
-		Port: ":8080",
+		Port:     ":8080",
+		Duration: "86400s", // 24 hours
 	}
 )
 
@@ -25,6 +26,7 @@ type Config struct {
 	AllowedOrigins string `mapstructure:"ALLOWED_ORIGINS"`
 	AllowedMethods string `mapstructure:"ALLOWED_METHODS"`
 	AllowedHeaders string `mapstructure:"ALLOWED_HEADERS"`
+	Duration       string `mapstructure:"DURATION"`
 }
 
 func Load() *Config {
@@ -77,11 +79,4 @@ func bindEnv(dest any, parts ...string) {
 			}
 		}
 	}
-}
-
-func getEnv(key, fallback string) string {
-	if value := os.Getenv(key); value != "" {
-		return value
-	}
-	return fallback
 }

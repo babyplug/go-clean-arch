@@ -1,6 +1,7 @@
 package background
 
 import (
+	"context"
 	"log"
 	"time"
 
@@ -9,11 +10,12 @@ import (
 
 func StartUserCountLogger(repo port.UserRepository, stopCh <-chan struct{}) {
 	ticker := time.NewTicker(10 * time.Second)
+	ctx := context.Background()
 	go func() {
 		for {
 			select {
 			case <-ticker.C:
-				count, err := repo.Count()
+				count, err := repo.Count(ctx)
 				if err == nil {
 					log.Printf("User count: %d", count)
 				} else {
