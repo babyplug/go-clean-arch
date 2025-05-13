@@ -13,3 +13,13 @@ tasks:
   build:
     cmds:
       - go build -o ./bin/apiserver ./cmd/api/main.go
+
+  g: 
+    cmds:
+      - task generate
+    silent: true
+    desc: Generate code
+  generate:
+    cmds:
+      - go generate ./...
+    desc: Generate code
