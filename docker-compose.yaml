@@ -1,0 +1,26 @@
+version: "3.8"
+services:
+  api:
+    image: clean-architecture-api
+    container_name: clean-architecture-api
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      MONGO_URI: mongodb://mongo:27017
+      JWT_SECRET: YOUR_API_SECRET_KEY
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
