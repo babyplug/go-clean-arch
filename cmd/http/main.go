@@ -9,6 +9,7 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/babyplug/go-clean-arch/internal/adapter/auth/jwt"
 	"github.com/babyplug/go-clean-arch/internal/adapter/background"
 	"github.com/babyplug/go-clean-arch/internal/adapter/config"
 	httpAdapter "github.com/babyplug/go-clean-arch/internal/adapter/handler/http"
@@ -34,10 +35,22 @@ func main() {
 	userService := service.NewUser(userRepo)
 	userHandler := httpAdapter.NewUserHandler(userService)
 
+	// Init token service
+	token, err := jwt.New(cfg)
+	if err != nil {
+		log.Fatalf("Failed to create token service: %v", err)
+	}
+
+	// Init auth service
+	authService := service.NewAuth(userRepo, token)
+	authHandler := httpAdapter.NewAuthHandler(authService)
+
 	// Init router
 	router, err := httpAdapter.NewRouter(
 		cfg,
+		token,
 		userHandler,
+		authHandler,
 	)
 
 	// Background user logger
