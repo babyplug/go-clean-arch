@@ -12,9 +12,14 @@ tasks:
 
   build:
     cmds:
-      - go build -o ./bin/apiserver ./cmd/api/main.go
+      - go build -o ./bin/apiserver ./cmd/api/main.goo
 
-  g: 
+  fmt:
+    cmds:
+      - gofmt -w .
+    desc: Format code
+
+  g:
     cmds:
       - task generate
     silent: true
@@ -23,3 +28,22 @@ tasks:
     cmds:
       - go generate ./...
     desc: Generate code
+
+  t:
+    cmds:
+      - task test
+    silent: true
+    desc: Run tests
+  test:
+    cmds:
+      - go test -v ./internal/core/service/...
+    desc: Run tests
+
+  tc:
+    cmds:
+      - task test.cov
+    silent: true
+    desc: Run tests with coverage
+  test.cov:
+    cmds:
+      - go test -covermode=count -coverprofile=covprofile.out ./internal/core/service/...
