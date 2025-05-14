@@ -11,8 +11,8 @@ import (
 )
 
 var (
-	userServiceOnce sync.Once
-	userService     *userServiceImpl
+	user     *userServiceImpl
+	userOnce sync.Once
 )
 
 type userServiceImpl struct {
@@ -20,24 +20,28 @@ type userServiceImpl struct {
 }
 
 func NewUser(repo port.UserRepository) port.UserService {
-	userServiceOnce.Do(func() {
-		userService = &userServiceImpl{repo: repo}
+	userOnce.Do(func() {
+		user = &userServiceImpl{repo: repo}
 	})
 
-	return userService
+	return user
+}
+
+func ResetUser() {
+	userOnce = sync.Once{}
 }
 
 func (s *userServiceImpl) Create(ctx context.Context, user *domain.User) error {
 	existing, _ := s.repo.GetByEmail(ctx, user.Email)
 	if existing != nil {
-		return errors.New("email already exists")
+		return domain.ErrDuplicateEmail
 	}
 
 	hashedPassword, err := util.HashPassword(user.Password)
 	if err != nil {
 		return err
 	}
-	user.Password = string(hashedPassword)
+	user.Password = hashedPassword
 	if err := s.repo.Create(ctx, user); err != nil {
 		return err
 	}
@@ -59,7 +63,7 @@ func (s *userServiceImpl) List(ctx context.Context) ([]*domain.User, error) {
 func (s *userServiceImpl) Update(ctx context.Context, user *domain.User) error {
 	existingUser, err := s.repo.GetByID(ctx, user.ID)
 	if err != nil {
-		return err
+		return domain.ErrDataNotFound
 	}
 
 	if existingUser.Email != user.Email {
