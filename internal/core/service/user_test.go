@@ -151,12 +151,14 @@ func TestUserService_Create(t *testing.T) {
 			userService := service.NewUser(test.dependency(ctrl))
 			defer service.ResetUser()
 			err := userService.Create(test.args.ctx, test.args.user)
-			if err != nil {
-				assert.True(t, test.expectErr)
-				assert.Equal(t, test.expectErrMsg, err.Error())
+			// For each test, after calling the function under test:
+			if test.expectErr {
+				assert.Error(t, err)
+				if test.expectErrMsg != "" {
+					assert.Equal(t, test.expectErrMsg, err.Error())
+				}
 				return
 			}
-
 			assert.NoError(t, err)
 			if test.expectUser != nil {
 				assert.Equal(t, test.args.user.ID, test.expectUser.ID)
@@ -220,10 +222,10 @@ func TestUserService_GetByID(t *testing.T) {
 
 			if test.expectErr {
 				assert.Error(t, err)
-			} else {
-				assert.NoError(t, err)
-				assert.Equal(t, test.expectUser, user)
+				return
 			}
+			assert.NoError(t, err)
+			assert.Equal(t, test.expectUser, user)
 		})
 	}
 }
@@ -276,10 +278,10 @@ func TestUserService_GetByEmail(t *testing.T) {
 
 			if test.expectErr {
 				assert.Error(t, err)
-			} else {
-				assert.NoError(t, err)
-				assert.Equal(t, test.expect, user)
+				return
 			}
+			assert.NoError(t, err)
+			assert.Equal(t, test.expect, user)
 		})
 	}
 }
@@ -346,10 +348,10 @@ func TestUserService_List(t *testing.T) {
 
 			if test.expectErr {
 				assert.Error(t, err)
-			} else {
-				assert.NoError(t, err)
-				assert.Equal(t, test.expectList, list)
+				return
 			}
+			assert.NoError(t, err)
+			assert.Equal(t, test.expectList, list)
 		})
 	}
 }
@@ -429,9 +431,9 @@ func TestUserService_Update(t *testing.T) {
 
 			if test.expectErr {
 				assert.Error(t, err)
-			} else {
-				assert.NoError(t, err)
+				return
 			}
+			assert.NoError(t, err)
 		})
 	}
 }
@@ -476,9 +478,9 @@ func TestUserService_Delete(t *testing.T) {
 
 			if test.expectErr {
 				assert.Error(t, err)
-			} else {
-				assert.NoError(t, err)
+				return
 			}
+			assert.NoError(t, err)
 		})
 	}
 }
@@ -523,10 +525,10 @@ func TestUserService_Count(t *testing.T) {
 
 			if test.expectErr {
 				assert.Error(t, err)
-			} else {
-				assert.NoError(t, err)
-				assert.Equal(t, test.expectCount, count)
+				return
 			}
+			assert.NoError(t, err)
+			assert.Equal(t, test.expectCount, count)
 		})
 	}
 }
