@@ -10,6 +10,8 @@ import (
 	"time"
 
 	"clean-arch/cmd/http/app"
+
+	_ "github.com/google/subcommands"
 )
 
 //	@title			Babyplug Clean Arch API
