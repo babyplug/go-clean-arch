@@ -5,10 +5,11 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/babyplug/go-clean-arch/internal/core/domain"
-	"github.com/babyplug/go-clean-arch/internal/core/port/mock"
-	"github.com/babyplug/go-clean-arch/internal/core/service"
-	"github.com/babyplug/go-clean-arch/internal/core/util"
+	"clean-arch/internal/core/domain"
+	"clean-arch/internal/core/port/mock"
+	"clean-arch/internal/core/service"
+	"clean-arch/internal/core/util"
+
 	"github.com/stretchr/testify/assert"
 	"go.uber.org/mock/gomock"
 )

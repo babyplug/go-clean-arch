@@ -5,9 +5,9 @@ import (
 	"errors"
 	"sync"
 
-	"github.com/babyplug/go-clean-arch/internal/core/domain"
-	"github.com/babyplug/go-clean-arch/internal/core/port"
-	"github.com/babyplug/go-clean-arch/internal/core/util"
+	"clean-arch/internal/core/domain"
+	"clean-arch/internal/core/port"
+	"clean-arch/internal/core/util"
 )
 
 var (

@@ -5,9 +5,9 @@ import (
 	"errors"
 	"sync"
 
-	"github.com/babyplug/go-clean-arch/internal/core/domain"
-	"github.com/babyplug/go-clean-arch/internal/core/port"
-	"github.com/babyplug/go-clean-arch/internal/core/util"
+	"clean-arch/internal/core/domain"
+	"clean-arch/internal/core/port"
+	"clean-arch/internal/core/util"
 )
 
 var (
@@ -56,8 +56,8 @@ func (s *userServiceImpl) GetByEmail(ctx context.Context, email string) (*domain
 	return s.repo.GetByEmail(ctx, email)
 }
 
-func (s *userServiceImpl) List(ctx context.Context) ([]*domain.User, error) {
-	return s.repo.List(ctx)
+func (s *userServiceImpl) List(ctx context.Context, page, size int64) ([]*domain.User, error) {
+	return s.repo.List(ctx, page, size)
 }
 
 func (s *userServiceImpl) Update(ctx context.Context, user *domain.User) error {

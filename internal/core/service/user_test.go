@@ -5,10 +5,11 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/babyplug/go-clean-arch/internal/core/domain"
-	"github.com/babyplug/go-clean-arch/internal/core/port/mock"
-	"github.com/babyplug/go-clean-arch/internal/core/service"
-	"github.com/babyplug/go-clean-arch/internal/core/util"
+	"clean-arch/internal/core/domain"
+	"clean-arch/internal/core/port/mock"
+	"clean-arch/internal/core/service"
+	"clean-arch/internal/core/util"
+
 	"github.com/stretchr/testify/assert"
 	"go.uber.org/mock/gomock"
 )
@@ -254,7 +255,7 @@ func TestUserService_GetByEmail(t *testing.T) {
 			},
 		},
 		{
-			name: "get by email fails",
+			name:  "get by email fails",
 			email: "test@gmail.com",
 			dependency: func(ctrl *gomock.Controller) *mock.MockUserRepository {
 				userRepo := mock.NewMockUserRepository(ctrl)
@@ -289,15 +290,19 @@ func TestUserService_GetByEmail(t *testing.T) {
 func TestUserService_List(t *testing.T) {
 	tests := []struct {
 		name       string
+		page       int64
+		size       int64
 		dependency func(ctrl *gomock.Controller) *mock.MockUserRepository
 		expectErr  bool
 		expectList []*domain.User
 	}{
 		{
 			name: "list users successfully",
+			page: 0,
+			size: 2,
 			dependency: func(ctrl *gomock.Controller) *mock.MockUserRepository {
 				userRepo := mock.NewMockUserRepository(ctrl)
-				userRepo.EXPECT().List(gomock.Any()).Return([]*domain.User{
+				userRepo.EXPECT().List(gomock.Any(), gomock.Any(), gomock.Any()).Return([]*domain.User{
 					{
 						ID:    "1",
 						Name:  "John Doe",
@@ -327,9 +332,11 @@ func TestUserService_List(t *testing.T) {
 		},
 		{
 			name: "error listing users",
+			page: 0,
+			size: 2,
 			dependency: func(ctrl *gomock.Controller) *mock.MockUserRepository {
 				userRepo := mock.NewMockUserRepository(ctrl)
-				userRepo.EXPECT().List(gomock.Any()).Return(nil, errors.New("internal error"))
+				userRepo.EXPECT().List(gomock.Any(), gomock.Any(), gomock.Any()).Return(nil, errors.New("internal error"))
 				return userRepo
 			},
 			expectErr:  true,
@@ -344,7 +351,7 @@ func TestUserService_List(t *testing.T) {
 
 			userService := service.NewUser(test.dependency(ctrl))
 			defer service.ResetUser()
-			list, err := userService.List(context.Background())
+			list, err := userService.List(context.Background(), test.page, test.size)
 
 			if test.expectErr {
 				assert.Error(t, err)

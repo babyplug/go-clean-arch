@@ -7,43 +7,40 @@ vars:
 
 tasks:
   default:
-    cmds:
-      - air
+    cmd: air
 
   build:
-    cmds:
-      - go build -o ./bin/apiserver ./cmd/api/main.go
+    cmd: go build -o ./bin/apiserver ./cmd/api/main.go
 
   fmt:
-    cmds:
-      - gofmt -w .
+    cmd: gofmt -w .
     desc: Format code
 
   g:
-    cmds:
-      - task generate
+    cmd: task generate
     silent: true
     desc: Generate code
   generate:
-    cmds:
-      - go generate ./...
+    cmd: go generate ./...
     desc: Generate code
 
   t:
-    cmds:
-      - task test
+    cmd: task test
     silent: true
     desc: Run tests
   test:
-    cmds:
-      - go test -v ./internal/core/service/...
+    cmd: go test -v ./internal/core/service/...
     desc: Run tests
 
   tc:
-    cmds:
-      - task test.cov
+    cmd: task test.cov
     silent: true
     desc: Run tests with coverage
   test.cov:
+    cmd: go test -v -covermode=count -coverprofile=covprofile.out ./internal/core/service/...
+
+  swag:
+    desc: "Generate swagger documentation"
     cmds:
-      - go test -covermode=count -coverprofile=covprofile.out ./internal/core/service/...
+      - swag fmt ./...
+      - swag init -g ./cmd/http/main.go -o ./docs --parseInternal true
