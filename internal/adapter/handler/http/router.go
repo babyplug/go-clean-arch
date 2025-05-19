@@ -56,7 +56,7 @@ func NewRouter(
 	{
 		user := v1.Group("/users")
 		{
-			user.POST("/register", userHandler.Register)
+			user.POST("", userHandler.Register)
 
 			authUser := user.Group("").Use(middleware.AuthMiddleware(token))
 			{

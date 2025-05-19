@@ -9,6 +9,11 @@ tasks:
   default:
     cmd: air
 
+  run:
+    desc: Run the application
+    cmds:
+      - air
+
   build:
     cmd: go build -o ./bin/apiserver ./cmd/api/main.go
 

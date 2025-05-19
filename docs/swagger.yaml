@@ -59,6 +59,18 @@ definitions:
     - name
     - password
     type: object
+  http.updateUserRequest:
+    properties:
+      email:
+        example: test@example.com
+        type: string
+      name:
+        example: John Doe
+        type: string
+    required:
+    - email
+    - name
+    type: object
   http.userListResponse:
     properties:
       meta:
@@ -160,6 +172,156 @@ paths:
       security:
       - BearerAuth: []
       summary: List users
+      tags:
+      - Users
+    post:
+      consumes:
+      - application/json
+      description: create a new user account
+      parameters:
+      - description: Register request
+        in: body
+        name: registerRequest
+        required: true
+        schema:
+          $ref: '#/definitions/http.registerRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User created
+          schema:
+            $ref: '#/definitions/http.userResponse'
+        "400":
+          description: Validation error
+          schema:
+            $ref: '#/definitions/http.errorResponse'
+        "401":
+          description: Unauthorized error
+          schema:
+            $ref: '#/definitions/http.errorResponse'
+        "404":
+          description: Data not found error
+          schema:
+            $ref: '#/definitions/http.errorResponse'
+        "409":
+          description: Data conflict error
+          schema:
+            $ref: '#/definitions/http.errorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/http.errorResponse'
+      security:
+      - none: []
+      summary: Register a new user
+      tags:
+      - Users
+  /users/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a user by their unique ID
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User deleted
+        "400":
+          description: Validation error
+          schema:
+            $ref: '#/definitions/http.errorResponse'
+        "404":
+          description: User not found
+          schema:
+            $ref: '#/definitions/http.errorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/http.errorResponse'
+      security:
+      - BearerAuth: []
+      summary: Delete user
+      tags:
+      - Users
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a user by their unique ID
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User found
+          schema:
+            $ref: '#/definitions/http.userResponse'
+        "400":
+          description: Validation error
+          schema:
+            $ref: '#/definitions/http.errorResponse'
+        "404":
+          description: User not found
+          schema:
+            $ref: '#/definitions/http.errorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/http.errorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get user by ID
+      tags:
+      - Users
+    put:
+      consumes:
+      - application/json
+      description: Update user information by ID
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Update user request
+        in: body
+        name: updateUserRequest
+        required: true
+        schema:
+          $ref: '#/definitions/http.updateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User updated
+          schema:
+            $ref: '#/definitions/http.userResponse'
+        "400":
+          description: Validation error
+          schema:
+            $ref: '#/definitions/http.errorResponse'
+        "404":
+          description: User not found
+          schema:
+            $ref: '#/definitions/http.errorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/http.errorResponse'
+      security:
+      - BearerAuth: []
+      summary: Update user
       tags:
       - Users
 schemes:

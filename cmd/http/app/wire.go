@@ -20,13 +20,15 @@ import (
 // InitializeApplication wires up all dependencies and returns an *Application.
 func InitializeApplication(ctx context.Context) (*Application, error) {
 	wire.Build(
-		New,         // app.New (constructor for *Application)
 		config.Load, // *config.Config
 		mongo.New,
-		repo.NewUserRepo,    // port.UserRepository
-		jwt.ProviderSet, // port.TokenService
-		service.ProviderSet, // provides port.UserService, port.AuthService
-		http.ProviderSet,
+		repo.NewUserRepo, // port.UserRepository
+		jwt.New,          // port.TokenService
+		service.NewUser,
+		service.NewAuth,
+		http.NewUserHandler,
+		http.NewAuthHandler,
+		New, // app.New (constructor for *Application)
 	)
 	return nil, nil
 }

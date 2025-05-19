@@ -15,9 +15,14 @@ COPY . .
 # Set necessary environment variables needed for our image
 # and build the API server.
 ENV CGO_ENABLED=0 GOOS=linux GOARCH=amd64
-RUN go build -o apiserver ./cmd/api
+RUN go build -o apiserver ./cmd/http
 
-FROM public.ecr.aws/docker/library/alpine:3.21
+FROM public.ecr.aws/docker/library/alpine:3.21 AS prod
+# Create non-root user and group.
+RUN addgroup -S app && adduser -S app -G app
+
+# Set the working directory.
+WORKDIR /app
 
 # COPY the binary from the builder stage.
 COPY --from=builder ["/build/apiserver", "/"]

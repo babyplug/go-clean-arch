@@ -72,6 +72,9 @@ func (s *userServiceImpl) Update(ctx context.Context, user *domain.User) error {
 			return errors.New("email already exists")
 		}
 	}
+	// Update only the fields that are allowed to be updated
+	existingUser.Name = user.Name
+	existingUser.Email = user.Email
 
 	return s.repo.Update(ctx, user)
 }
