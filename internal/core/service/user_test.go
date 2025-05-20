@@ -5,10 +5,10 @@ import (
 	"errors"
 	"testing"
 
-	"clean-arch/internal/core/domain"
-	"clean-arch/internal/core/port/mock"
-	"clean-arch/internal/core/service"
-	"clean-arch/internal/core/util"
+	"go-hexagonal-architecture/internal/core/domain"
+	"go-hexagonal-architecture/internal/core/port/mock"
+	"go-hexagonal-architecture/internal/core/service"
+	"go-hexagonal-architecture/internal/core/util"
 
 	"github.com/stretchr/testify/assert"
 	"go.uber.org/mock/gomock"

@@ -4,9 +4,9 @@ import (
 	"errors"
 	"time"
 
-	"clean-arch/internal/adapter/config"
-	"clean-arch/internal/core/domain"
-	"clean-arch/internal/core/port"
+	"go-hexagonal-architecture/internal/adapter/config"
+	"go-hexagonal-architecture/internal/core/domain"
+	"go-hexagonal-architecture/internal/core/port"
 
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/google/uuid"

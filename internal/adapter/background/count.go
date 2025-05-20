@@ -5,7 +5,7 @@ import (
 	"log"
 	"time"
 
-	"clean-arch/internal/core/port"
+	"go-hexagonal-architecture/internal/core/port"
 )
 
 func StartUserCountLogger(repo port.UserRepository, stopCh <-chan struct{}) {

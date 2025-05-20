@@ -9,7 +9,7 @@ import (
 	"syscall"
 	"time"
 
-	"clean-arch/cmd/http/app"
+	"go-hexagonal-architecture/cmd/http/app"
 
 	_ "github.com/google/subcommands"
 )

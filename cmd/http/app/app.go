@@ -7,11 +7,11 @@ import (
 	"net/http"
 	"sync"
 
-	"clean-arch/internal/adapter/background"
-	"clean-arch/internal/adapter/config"
-	handler "clean-arch/internal/adapter/handler/http"
-	"clean-arch/internal/adapter/infra/mongo"
-	"clean-arch/internal/core/port"
+	"go-hexagonal-architecture/internal/adapter/background"
+	"go-hexagonal-architecture/internal/adapter/config"
+	handler "go-hexagonal-architecture/internal/adapter/handler/http"
+	"go-hexagonal-architecture/internal/adapter/infra/mongo"
+	"go-hexagonal-architecture/internal/core/port"
 )
 
 type Application struct {

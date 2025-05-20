@@ -7,13 +7,13 @@
 package app
 
 import (
-	"clean-arch/internal/adapter/auth/jwt"
-	"clean-arch/internal/adapter/config"
-	"clean-arch/internal/adapter/handler/http"
-	"clean-arch/internal/adapter/infra/mongo"
-	"clean-arch/internal/adapter/infra/mongo/repo"
-	"clean-arch/internal/core/service"
 	"context"
+	"go-hexagonal-architecture/internal/adapter/auth/jwt"
+	"go-hexagonal-architecture/internal/adapter/config"
+	"go-hexagonal-architecture/internal/adapter/handler/http"
+	"go-hexagonal-architecture/internal/adapter/infra/mongo"
+	"go-hexagonal-architecture/internal/adapter/infra/mongo/repo"
+	"go-hexagonal-architecture/internal/core/service"
 )
 
 // Injectors from wire.go:

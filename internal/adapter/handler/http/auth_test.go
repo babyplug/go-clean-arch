@@ -11,10 +11,10 @@ import (
 	"github.com/stretchr/testify/assert"
 	"go.uber.org/mock/gomock"
 
-	"clean-arch/internal/core/domain"
-	"clean-arch/internal/core/port/mock"
+	"go-hexagonal-architecture/internal/core/domain"
+	"go-hexagonal-architecture/internal/core/port/mock"
 
-	handler "clean-arch/internal/adapter/handler/http"
+	handler "go-hexagonal-architecture/internal/adapter/handler/http"
 )
 
 func TestAuthHandler_Login(t *testing.T) {

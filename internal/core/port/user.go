@@ -4,7 +4,7 @@ package port
 import (
 	"context"
 
-	"clean-arch/internal/core/domain"
+	"go-hexagonal-architecture/internal/core/domain"
 )
 
 type UserRepository interface {

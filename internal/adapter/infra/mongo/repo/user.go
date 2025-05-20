@@ -6,9 +6,9 @@ import (
 	"sync"
 	"time"
 
-	"clean-arch/internal/adapter/infra/mongo"
-	"clean-arch/internal/core/domain"
-	"clean-arch/internal/core/port"
+	"go-hexagonal-architecture/internal/adapter/infra/mongo"
+	"go-hexagonal-architecture/internal/core/domain"
+	"go-hexagonal-architecture/internal/core/port"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"

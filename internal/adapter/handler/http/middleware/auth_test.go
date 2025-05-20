@@ -6,10 +6,10 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"clean-arch/internal/adapter/handler/http/middleware"
-	"clean-arch/internal/core/domain"
-	"clean-arch/internal/core/port"
-	"clean-arch/internal/core/port/mock"
+	"go-hexagonal-architecture/internal/adapter/handler/http/middleware"
+	"go-hexagonal-architecture/internal/core/domain"
+	"go-hexagonal-architecture/internal/core/port"
+	"go-hexagonal-architecture/internal/core/port/mock"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"

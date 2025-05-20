@@ -1,7 +1,7 @@
 package repo_test
 
 import (
-	"clean-arch/internal/adapter/infra/mongo/repo"
+	"go-hexagonal-architecture/internal/adapter/infra/mongo/repo"
 	"testing"
 )
 

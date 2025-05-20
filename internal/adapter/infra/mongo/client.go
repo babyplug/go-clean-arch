@@ -2,8 +2,8 @@
 package mongo
 
 import (
-	"clean-arch/internal/adapter/config"
 	"context"
+	"go-hexagonal-architecture/internal/adapter/config"
 	"log"
 	"sync"
 	"time"

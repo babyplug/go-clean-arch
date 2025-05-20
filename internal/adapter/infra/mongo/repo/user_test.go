@@ -10,10 +10,10 @@ import (
 	driver "go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 
-	"clean-arch/internal/adapter/infra/mongo"
-	"clean-arch/internal/adapter/infra/mongo/mock"
-	"clean-arch/internal/adapter/infra/mongo/repo"
-	"clean-arch/internal/core/domain"
+	"go-hexagonal-architecture/internal/adapter/infra/mongo"
+	"go-hexagonal-architecture/internal/adapter/infra/mongo/mock"
+	"go-hexagonal-architecture/internal/adapter/infra/mongo/repo"
+	"go-hexagonal-architecture/internal/core/domain"
 )
 
 // type

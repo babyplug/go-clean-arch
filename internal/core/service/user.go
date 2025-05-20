@@ -4,9 +4,9 @@ import (
 	"context"
 	"sync"
 
-	"clean-arch/internal/core/domain"
-	"clean-arch/internal/core/port"
-	"clean-arch/internal/core/util"
+	"go-hexagonal-architecture/internal/core/domain"
+	"go-hexagonal-architecture/internal/core/port"
+	"go-hexagonal-architecture/internal/core/util"
 )
 
 var (

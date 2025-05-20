@@ -1,6 +1,6 @@
 package http
 
-import "clean-arch/internal/core/domain"
+import "go-hexagonal-architecture/internal/core/domain"
 
 type registerRequest struct {
 	Name     string `json:"name" binding:"required"`
