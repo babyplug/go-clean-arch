@@ -2,7 +2,6 @@ package service
 
 import (
 	"context"
-	"errors"
 	"sync"
 
 	"clean-arch/internal/core/domain"
@@ -69,7 +68,7 @@ func (s *userServiceImpl) Update(ctx context.Context, user *domain.User) error {
 	if existingUser.Email != user.Email {
 		existing, _ := s.repo.GetByEmail(ctx, user.Email)
 		if existing != nil {
-			return errors.New("email already exists")
+			return domain.ErrDuplicateEmail
 		}
 	}
 	// Update only the fields that are allowed to be updated

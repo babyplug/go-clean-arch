@@ -63,8 +63,9 @@ func handleError(ctx *gin.Context, err error, code ...int) {
 		statusCode = code[0]
 	}
 
-	if errors.Is(err, &domain.Error{}) {
-		domainErr := err.(*domain.Error)
+	var domainErr *domain.Error
+	if errors.As(err, &domainErr) {
+		//domainErr := err.(*domain.Error)
 		statusCode = domainErr.Code
 	}
 
@@ -113,9 +114,9 @@ func newAuthResponse(token string) authResponse {
 // newMeta is a helper function to create metadata for a paginated response
 func newMeta(total, page, size int64) meta {
 	return meta{
-		Total: total,
+		Total:     total,
 		TotalPage: total / size,
-		Size:  size,
-		Page:  page,
+		Size:      size,
+		Page:      page,
 	}
 }

@@ -3,6 +3,7 @@ package http
 import (
 	"clean-arch/internal/core/domain"
 	"clean-arch/internal/core/port"
+	"log"
 
 	"github.com/gin-gonic/gin"
 )
@@ -45,6 +46,7 @@ func (h *UserHandler) Register(ctx *gin.Context) {
 	}
 
 	if err := h.svc.Create(ctx, &user); err != nil {
+		log.Println("err", err)
 		handleError(ctx, err)
 		return
 	}
@@ -128,7 +130,7 @@ func (h *UserHandler) GetByID(ctx *gin.Context) {
 func (h *UserHandler) Update(ctx *gin.Context) {
 	req := updateUserRequest{}
 
-	if err := ctx.ShouldBindJSON(req); err != nil {
+	if err := ctx.ShouldBindJSON(&req); err != nil {
 		validationError(ctx, err)
 		return
 	}

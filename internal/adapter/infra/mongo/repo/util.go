@@ -1,11 +1,11 @@
 package repo
 
-func calculateSkip(page, size int64) int64 {
-	if page < 0 {
-		page = 0
+func CalculateSkip(page, size int64) int64 {
+	if page < 1 {
+		page = 1
 	}
 	if size <= 0 {
 		size = 10
 	}
-	return page * size
+	return (page - 1) * size
 }

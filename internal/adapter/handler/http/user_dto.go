@@ -12,8 +12,8 @@ type userResponse domain.User
 
 // updateUserRequest represents the request body for updating a user
 type updateUserRequest struct {
-	Name  string `json:"name" binding:"omitempty,required" example:"John Doe"`
-	Email string `json:"email" binding:"omitempty,required,email" example:"test@example.com"`
+	Name  string `json:"name" binding:"required" example:"John Doe"`
+	Email string `json:"email" binding:"required,email" example:"test@example.com"`
 }
 
 type userListResponse struct {

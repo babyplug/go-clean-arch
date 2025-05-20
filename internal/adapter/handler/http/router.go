@@ -1,7 +1,6 @@
 package http
 
 import (
-	"log"
 	"strings"
 
 	"clean-arch/internal/adapter/config"
@@ -29,6 +28,8 @@ func NewRouter(
 	userHandler *UserHandler, // UserHandler is a struct that handles user-related HTTP requests
 	authHandler *AuthHandler, // AuthHandler is a struct that handles authentication-related HTTP requests
 ) (*Router, error) {
+	gin.SetMode(gin.DebugMode)
+
 	// Disable debug mode in production
 	if config.Env == "production" {
 		gin.SetMode(gin.ReleaseMode)
@@ -40,7 +41,6 @@ func NewRouter(
 	if len(config.AllowedOrigins) == 0 {
 		originsList = []string{"*"} // Allow all origins if none are specified
 	}
-	log.Println("Allowed origins:", originsList)
 	ginConfig.AllowOrigins = originsList
 
 	r := gin.New()
@@ -58,7 +58,8 @@ func NewRouter(
 		{
 			user.POST("", userHandler.Register)
 
-			authUser := user.Group("").Use(middleware.AuthMiddleware(token))
+			authUser := user.Group("")
+			// .Use(middleware.AuthMiddleware(token))
 			{
 				authUser.GET("", userHandler.List)
 				authUser.GET("/:id", userHandler.GetByID)
