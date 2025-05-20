@@ -25,7 +25,7 @@ go.work
 /bin/tmp
 
 # Env File
-.env.*
+.env*
 
 apiserver
 
