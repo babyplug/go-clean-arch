@@ -2,6 +2,7 @@ package app
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net/http"
 	"sync"
@@ -50,7 +51,7 @@ func New(
 		}
 
 		srv := &http.Server{
-			Addr:    cfg.Port,
+			Addr:    fmt.Sprint(":", cfg.Port),
 			Handler: router.Handler(),
 		}
 
