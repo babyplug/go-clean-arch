@@ -22,6 +22,7 @@ func StartUserCountLogger(repo port.UserRepository, stopCh <-chan struct{}) {
 					log.Printf("Failed to count users: %v", err)
 				}
 			case <-stopCh:
+				log.Println("Stopping user count logger")
 				ticker.Stop()
 				return
 			}
