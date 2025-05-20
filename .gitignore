@@ -22,6 +22,7 @@ go.work
 
 # Tmp file from Air
 /tmp
+/bin/tmp
 
 # Env File
 .env.*
