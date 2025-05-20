@@ -7,19 +7,54 @@ vars:
 
 tasks:
   default:
+    cmd: air
+
+  run:
+    desc: Run the application
     cmds:
       - air
 
+  b:
+    desc: Build the application
+    cmds:
+      - task build
   build:
-    cmds:
-      - go build -o ./bin/apiserver ./cmd/api/main.go
+    cmd: go build -o ./bin/apiserver ./cmd/http/main.go
 
-  g: 
+  compose:
+    desc: Run the application with Docker Compose
     cmds:
-      - task generate
+      - COMPOSE_BAKE=true docker compose up -d --build
+
+  fmt:
+    cmd: gofmt -w .
+    desc: Format code
+
+  g:
+    cmd: task generate
     silent: true
     desc: Generate code
   generate:
-    cmds:
-      - go generate ./...
+    cmd: go generate ./...
     desc: Generate code
+
+  t:
+    cmd: task test
+    silent: true
+    desc: Run tests
+  test:
+    cmd: go test ./internal/core/service/... ./internal/adapter/...
+    desc: Run tests
+
+  tc:
+    cmd: task test.cov
+    silent: true
+    desc: Run tests with coverage
+  test.cov:
+    cmd: go test -covermode=count -coverprofile=covprofile.out ./internal/core/service/... ./internal/adapter/...
+
+  swag:
+    desc: "Generate swagger documentation"
+    cmds:
+      - swag fmt ./...
+      - swag init -g ./cmd/http/main.go -o ./docs --parseInternal true

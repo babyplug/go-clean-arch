@@ -5,17 +5,19 @@ import (
 	"os"
 	"reflect"
 	"strings"
+	"sync"
 
 	"github.com/spf13/viper"
 )
 
 var (
-	_config Config = Config{
+	_config = Config{
 		MongoURI: "mongodb://localhost:27017",
 
-		Port:     ":8080",
+		Port:     "8080",
 		Duration: "86400s", // 24 hours
 	}
+	_configOnce sync.Once
 )
 
 type Config struct {
@@ -30,28 +32,29 @@ type Config struct {
 }
 
 func Load() *Config {
-	viper := viper.New()
-
-	configFile, ok := os.LookupEnv("CONFIG_FILE")
-	if ok && len(configFile) > 0 {
-		viper.SetConfigFile(configFile)
-		if err := viper.ReadInConfig(); err != nil {
-			log.Printf("Failed to read config file: " + err.Error())
+	_configOnce.Do(func() {
+		envFilePath, ok := os.LookupEnv("ENV_FILE")
+		if len(envFilePath) > 0 && ok {
+			log.Printf("env file is set reading config from file %s\n", envFilePath)
+			viper.SetConfigFile(envFilePath)
+			if err := viper.ReadInConfig(); err != nil {
+				log.Printf("read config from file %s failed: %v\tcontinue reading from `env`\n", envFilePath, err)
+				viper.AutomaticEnv()
+			}
+		} else {
+			log.Println("env file not set reading config from `env")
 			viper.AutomaticEnv()
 		}
-	} else {
-		viper.AutomaticEnv()
-	}
 
-	bindEnv(_config)
+		viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
+		bindEnv(_config)
 
-	err := viper.Unmarshal(&_config)
-	if err != nil {
-		log.Printf("Failed to unmarshal config: " + err.Error())
-	}
-
-	log.Printf("Latest Config: %+v\n", _config)
-
+		err := viper.Unmarshal(&_config)
+		if err != nil {
+			log.Fatalf("Failed to unmarshal config: %v", err)
+		}
+		log.Printf("Config: %+v\n", _config)
+	})
 	return &_config
 }
 
