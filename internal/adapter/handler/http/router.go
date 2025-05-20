@@ -37,11 +37,9 @@ func NewRouter(
 
 	// CORS
 	ginConfig := cors.DefaultConfig()
-	originsList := strings.Split(config.AllowedOrigins, ",")
-	if len(config.AllowedOrigins) == 0 {
-		originsList = []string{"*"} // Allow all origins if none are specified
-	}
-	ginConfig.AllowOrigins = originsList
+	ginConfig.AllowOrigins = strings.Split(config.AllowedOrigins, ",")
+	ginConfig.AllowMethods = strings.Split(config.AllowedMethods, ",")
+	ginConfig.AllowHeaders = strings.Split(config.AllowedHeaders, ",")
 
 	r := gin.New()
 	r.Use(gin.Recovery(), gin.Logger(), cors.New(ginConfig), middleware.LoggingMiddleware())

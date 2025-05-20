@@ -18,7 +18,7 @@ type TokenAuth struct {
 }
 
 func New(cfg *config.Config) (port.TokenService, error) {
-	duration, err := time.ParseDuration(cfg.Duration)
+	duration, err := time.ParseDuration(cfg.JWTExpiration)
 	if err != nil {
 		return nil, errors.New("invalid duration format")
 	}
