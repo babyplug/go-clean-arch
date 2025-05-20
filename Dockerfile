@@ -15,7 +15,7 @@ COPY . .
 # Set necessary environment variables needed for our image
 # and build the API server.
 ENV CGO_ENABLED=0 GOOS=linux GOARCH=amd64
-RUN go build -o apiserver ./cmd/http
+RUN go build -o apiserver ./cmd/http/main.go
 
 FROM public.ecr.aws/docker/library/alpine:3.21 AS prod
 # Create non-root user and group.
