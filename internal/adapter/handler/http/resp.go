@@ -5,7 +5,7 @@ import (
 	"log/slog"
 	"net/http"
 
-	"clean-arch/internal/core/domain"
+	"go-hexagonal-architecture/internal/core/domain"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"

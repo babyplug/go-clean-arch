@@ -1,7 +1,7 @@
 package http
 
 import (
-	"clean-arch/internal/core/port"
+	"go-hexagonal-architecture/internal/core/port"
 
 	"github.com/gin-gonic/gin"
 )

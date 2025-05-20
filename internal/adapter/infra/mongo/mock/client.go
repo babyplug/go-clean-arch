@@ -10,8 +10,8 @@
 package mock
 
 import (
-	mongo "clean-arch/internal/adapter/infra/mongo"
 	context "context"
+	mongo "go-hexagonal-architecture/internal/adapter/infra/mongo"
 	reflect "reflect"
 	time "time"
 

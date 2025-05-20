@@ -11,10 +11,10 @@ import (
 	"github.com/stretchr/testify/assert"
 	"go.uber.org/mock/gomock"
 
-	handler "clean-arch/internal/adapter/handler/http"
-	"clean-arch/internal/core/domain"
-	"clean-arch/internal/core/port"
-	"clean-arch/internal/core/port/mock"
+	handler "go-hexagonal-architecture/internal/adapter/handler/http"
+	"go-hexagonal-architecture/internal/core/domain"
+	"go-hexagonal-architecture/internal/core/port"
+	"go-hexagonal-architecture/internal/core/port/mock"
 )
 
 func TestUserHandler_Register(t *testing.T) {

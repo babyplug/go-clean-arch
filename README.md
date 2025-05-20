@@ -66,7 +66,7 @@
 ### Clone the Repository
 ```zsh
 git clone <your-repo-url>
-cd clean-arch
+cd go-hexagonal-architecture
 ```
 
 ### Install Dependencies

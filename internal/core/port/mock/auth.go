@@ -10,8 +10,8 @@
 package mock
 
 import (
-	domain "clean-arch/internal/core/domain"
 	context "context"
+	domain "go-hexagonal-architecture/internal/core/domain"
 	reflect "reflect"
 
 	gomock "go.uber.org/mock/gomock"

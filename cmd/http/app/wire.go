@@ -7,12 +7,12 @@ package app
 import (
 	"context"
 
-	"clean-arch/internal/adapter/auth/jwt"
-	"clean-arch/internal/adapter/config"
-	"clean-arch/internal/adapter/handler/http"
-	"clean-arch/internal/adapter/infra/mongo"
-	repo "clean-arch/internal/adapter/infra/mongo/repo"
-	"clean-arch/internal/core/service"
+	"go-hexagonal-architecture/internal/adapter/auth/jwt"
+	"go-hexagonal-architecture/internal/adapter/config"
+	"go-hexagonal-architecture/internal/adapter/handler/http"
+	"go-hexagonal-architecture/internal/adapter/infra/mongo"
+	repo "go-hexagonal-architecture/internal/adapter/infra/mongo/repo"
+	"go-hexagonal-architecture/internal/core/service"
 
 	"github.com/google/wire"
 )

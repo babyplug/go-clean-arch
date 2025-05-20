@@ -1,4 +1,4 @@
-module clean-arch
+module go-hexagonal-architecture
 
 go 1.23.5
 

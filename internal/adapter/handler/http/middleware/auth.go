@@ -3,7 +3,7 @@ package middleware
 import (
 	"strings"
 
-	"clean-arch/internal/core/port"
+	"go-hexagonal-architecture/internal/core/port"
 
 	"github.com/gin-gonic/gin"
 )

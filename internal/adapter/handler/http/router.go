@@ -3,14 +3,14 @@ package http
 import (
 	"strings"
 
-	"clean-arch/internal/adapter/config"
-	"clean-arch/internal/adapter/handler/http/middleware"
-	"clean-arch/internal/core/port"
+	"go-hexagonal-architecture/internal/adapter/config"
+	"go-hexagonal-architecture/internal/adapter/handler/http/middleware"
+	"go-hexagonal-architecture/internal/core/port"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 
-	_ "clean-arch/docs"
+	_ "go-hexagonal-architecture/docs"
 
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"

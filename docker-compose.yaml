@@ -1,7 +1,7 @@
 services:
   api:
-    image: clean-arch
-    container_name: clean-arch-api
+    image: go-hexagonal-architecture
+    container_name: go-hexagonal-architecture-api
     restart: always
     build:
       context: .

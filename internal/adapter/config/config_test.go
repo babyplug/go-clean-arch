@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	"clean-arch/internal/adapter/config"
+	"go-hexagonal-architecture/internal/adapter/config"
 
 	"github.com/stretchr/testify/assert"
 )
