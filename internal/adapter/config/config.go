@@ -14,21 +14,26 @@ var (
 	_config = Config{
 		MongoURI: "mongodb://localhost:27017",
 
-		Port:     "8080",
-		Duration: "86400s", // 24 hours
+		Port:          "8080",
+		JWTExpiration: "86400s", // 24 hours
+
+		AllowedOrigins: "*",
+		AllowedMethods: "GET,POST,PUT,DELETE,OPTIONS",
+		AllowedHeaders: "Origin,Content-Type,Accept,Authorization",
 	}
 	_configOnce sync.Once
 )
 
 type Config struct {
 	MongoURI       string `mapstructure:"MONGO_URI"`
-	JWTSecret      string `mapstructure:"JWT_SECRET"`
 	Port           string `mapstructure:"PORT"`
 	Env            string `mapstructure:"ENV"`
 	AllowedOrigins string `mapstructure:"ALLOWED_ORIGINS"`
 	AllowedMethods string `mapstructure:"ALLOWED_METHODS"`
 	AllowedHeaders string `mapstructure:"ALLOWED_HEADERS"`
-	Duration       string `mapstructure:"DURATION"`
+
+	JWTSecret     string `mapstructure:"JWT_SECRET"`
+	JWTExpiration string `mapstructure:"JWT_EXPIRATION"`
 }
 
 func Load() *Config {
@@ -56,6 +61,10 @@ func Load() *Config {
 		log.Printf("Config: %+v\n", _config)
 	})
 	return &_config
+}
+
+func Reset() {
+	_configOnce = sync.Once{}
 }
 
 func bindEnv(dest any, parts ...string) {
