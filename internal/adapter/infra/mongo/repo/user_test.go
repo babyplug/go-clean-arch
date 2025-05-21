@@ -535,19 +535,19 @@ func TestUserRepoImpl_List(t *testing.T) {
 			expectErr:    true,
 			expectErrMsg: assert.AnError.Error(),
 		},
-			{
+		{
 			name: "when decode returns error",
 			page: 0, size: 2,
 			dependency: func(ctrl *gomock.Controller) mongo.Client {
 				client := mock.NewMockClient(ctrl)
 				db := mock.NewMockDatabase(ctrl)
 				col := mock.NewMockCollection(ctrl)
-				
+
 				cur := mock.NewMockCursor(ctrl)
 				cur.EXPECT().Next(gomock.Any()).Return(true)
 				cur.EXPECT().Close(gomock.Any()).Return(nil)
 				cur.EXPECT().Decode(gomock.Any()).Return(assert.AnError)
-				
+
 				client.EXPECT().Database(gomock.Any()).Return(db)
 				db.EXPECT().Collection(gomock.Any()).Return(col)
 
@@ -557,7 +557,7 @@ func TestUserRepoImpl_List(t *testing.T) {
 			},
 			expectErr:    true,
 			expectErrMsg: assert.AnError.Error(),
-		},	
+		},
 	}
 
 	for _, test := range tests {

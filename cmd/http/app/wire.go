@@ -7,7 +7,7 @@ package app
 import (
 	"context"
 
-	"go-hexagonal-architecture/internal/adapter/auth/jwt"
+	"go-hexagonal-architecture/internal/adapter/auth/token"
 	"go-hexagonal-architecture/internal/adapter/config"
 	"go-hexagonal-architecture/internal/adapter/handler/http"
 	"go-hexagonal-architecture/internal/adapter/infra/mongo"
@@ -23,7 +23,7 @@ func InitializeApplication(ctx context.Context) (*Application, error) {
 		config.Load, // *config.Config
 		mongo.New,
 		repo.NewUserRepo, // port.UserRepository
-		jwt.New,          // port.TokenService
+		token.New,        // port.TokenService
 		service.NewUser,
 		service.NewAuth,
 		http.NewUserHandler,

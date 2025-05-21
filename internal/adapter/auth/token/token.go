@@ -1,4 +1,4 @@
-package jwt
+package token
 
 import (
 	"errors"
@@ -9,10 +9,9 @@ import (
 	"go-hexagonal-architecture/internal/core/port"
 
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/google/uuid"
 )
 
-type TokenAuth struct {
+type jwtTokenAuth struct {
 	secret   string
 	duration time.Duration
 }
@@ -23,10 +22,14 @@ func New(cfg *config.Config) (port.TokenService, error) {
 		return nil, errors.New("invalid duration format")
 	}
 
-	return &TokenAuth{secret: cfg.JWTSecret, duration: duration}, nil
+	return &jwtTokenAuth{secret: cfg.JWTSecret, duration: duration}, nil
 }
 
-func (ta *TokenAuth) CreateToken(user *domain.User) (string, error) {
+func (ta *jwtTokenAuth) CreateToken(user *domain.User) (string, error) {
+	if len(ta.secret) == 0 {
+		return "", errors.New("secret is empty")
+	}
+
 	issuedAt := time.Now()
 	expiredAt := issuedAt.Add(ta.duration)
 
@@ -40,7 +43,7 @@ func (ta *TokenAuth) CreateToken(user *domain.User) (string, error) {
 	return token.SignedString([]byte(ta.secret))
 }
 
-func (ta *TokenAuth) VerifyToken(token string) (*domain.TokenPayload, error) {
+func (ta *jwtTokenAuth) VerifyToken(token string) (*domain.TokenPayload, error) {
 	tk, err := jwt.Parse(token, func(t *jwt.Token) (interface{}, error) {
 		if _, ok := t.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, jwt.ErrTokenMalformed
@@ -53,6 +56,6 @@ func (ta *TokenAuth) VerifyToken(token string) (*domain.TokenPayload, error) {
 	}
 	claims := tk.Claims.(jwt.MapClaims)
 	return &domain.TokenPayload{
-		ID: claims["sub"].(uuid.UUID),
+		ID: claims["sub"].(string),
 	}, nil
 }

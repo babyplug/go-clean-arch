@@ -83,5 +83,3 @@ func TestAuthHandler_Login(t *testing.T) {
 		})
 	}
 }
-
-
