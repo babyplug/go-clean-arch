@@ -6,7 +6,7 @@ import (
 	"sync"
 	"time"
 
-	"go-hexagonal-architecture/internal/adapter/infra/mongo"
+	"go-hexagonal-architecture/internal/adapter/storage/mongo"
 	"go-hexagonal-architecture/internal/core/domain"
 	"go-hexagonal-architecture/internal/core/port"
 

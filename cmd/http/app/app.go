@@ -10,7 +10,7 @@ import (
 	"go-hexagonal-architecture/internal/adapter/background"
 	"go-hexagonal-architecture/internal/adapter/config"
 	handler "go-hexagonal-architecture/internal/adapter/handler/http"
-	"go-hexagonal-architecture/internal/adapter/infra/mongo"
+	"go-hexagonal-architecture/internal/adapter/storage/mongo"
 	"go-hexagonal-architecture/internal/core/port"
 )
 

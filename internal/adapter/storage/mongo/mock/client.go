@@ -11,7 +11,7 @@ package mock
 
 import (
 	context "context"
-	mongo "go-hexagonal-architecture/internal/adapter/infra/mongo"
+	mongo "go-hexagonal-architecture/internal/adapter/storage/mongo"
 	reflect "reflect"
 	time "time"
 

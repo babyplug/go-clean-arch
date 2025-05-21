@@ -10,8 +10,8 @@ import (
 	"go-hexagonal-architecture/internal/adapter/auth/token"
 	"go-hexagonal-architecture/internal/adapter/config"
 	"go-hexagonal-architecture/internal/adapter/handler/http"
-	"go-hexagonal-architecture/internal/adapter/infra/mongo"
-	repo "go-hexagonal-architecture/internal/adapter/infra/mongo/repo"
+	"go-hexagonal-architecture/internal/adapter/storage/mongo"
+	"go-hexagonal-architecture/internal/adapter/storage/mongo/repo"
 	"go-hexagonal-architecture/internal/core/service"
 
 	"github.com/google/wire"

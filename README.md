@@ -25,13 +25,14 @@
 ├── internal
 │   ├── adapter
 │   │   ├── auth
+│   │   │   └── token
 │   │   ├── background
 │   │   ├── config
 │   │   ├── handler
 │   │   │   ├── grpc
 │   │   │   └── http
 │   │   │       └── middleware
-│   │   └── infra
+│   │   └── storage
 │   │       └── mongo
 │   │           └── repo
 │   └── core
@@ -111,6 +112,21 @@ $ air
 $ task
 ```
 
+### Unit Test
+
+If you have change the code, please make sure you run the unit test before you push it.
+
+```sh
+$ go test ./internal/core/service/... ./internal/adapter/...
+# Or with Task
+$ task t 
+
+# Or test coverage 
+$ go test -covermode=count -coverprofile=covprofile.out ./internal/core/service/... ./internal/adapter/...
+
+# Or test coverage with Task
+$ task tc
+```
 
 ### API Documentation
 - Swagger UI: [http://localhost:8080/swagger/index.html](http://localhost:8080/swagger/index.html)
