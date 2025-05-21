@@ -70,7 +70,7 @@ func TestAuthMiddleware(t *testing.T) {
 			header: "Bearer validtoken",
 			dependency: func(ctrl *gomock.Controller) port.TokenService {
 				m := mock.NewMockTokenService(ctrl)
-				m.EXPECT().VerifyToken("validtoken").Return(&domain.TokenPayload{ID: uuid.New()}, nil)
+				m.EXPECT().VerifyToken("validtoken").Return(&domain.TokenPayload{ID: uuid.NewString()}, nil)
 				return m
 			},
 			expectStatus:   200,
