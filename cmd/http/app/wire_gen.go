@@ -8,7 +8,7 @@ package app
 
 import (
 	"context"
-	"go-hexagonal-architecture/internal/adapter/auth/jwt"
+	"go-hexagonal-architecture/internal/adapter/auth/token"
 	"go-hexagonal-architecture/internal/adapter/config"
 	"go-hexagonal-architecture/internal/adapter/handler/http"
 	"go-hexagonal-architecture/internal/adapter/infra/mongo"
@@ -28,7 +28,7 @@ func InitializeApplication(ctx context.Context) (*Application, error) {
 	userRepository := repo.NewUserRepo(client)
 	userService := service.NewUser(userRepository)
 	userHandler := http.NewUserHandler(userService)
-	tokenService, err := jwt.New(configConfig)
+	tokenService, err := token.New(configConfig)
 	if err != nil {
 		return nil, err
 	}
