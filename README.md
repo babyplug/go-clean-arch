@@ -45,6 +45,7 @@
 └── Taskfile.yml
 ```
 
+- **bin**: directory to store binary of application, and store the /tmp binary from running Air
 - **docs**: directory to store project's documentation, such as swagger static files.
 - **cmd**: directory for main entry points or commands of the application. The http sub-directory holds the main HTTP server entry point.
 - **internal**: directory for containing application code that should not exposed to external packages.
@@ -81,6 +82,7 @@ docker-compose up -d
 ```
 
 ### Generate Wire Injectors (if you change DI wiring)
+For the DI wiring, please refer to the [DevTool-wire](#wire)
 ```zsh
 wire ./cmd/http/app
 
@@ -245,4 +247,6 @@ For more endpoints and details, see the Swagger UI or the `internal/adapter/hand
 ### Github Actions
 [GitHub Actions](https://github.com/features/actions) is a platform linked with GitHub repositories for automating tasks like building, testing, and deploying applications. It simplifies development and ensures code quality.
 
+### Wire
 
+[Wire](https://github.com/google/wire) is a code generation tool that automates connecting components using dependency injection. Dependencies between components are represented in Wire as function parameters, encouraging explicit initialization instead of global variables. Because Wire operates without runtime state or reflection, code written to be used with Wire is useful even for hand-written initialization.
